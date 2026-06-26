@@ -1,291 +1,114 @@
-
 #include <iostream>
-
 using namespace std;
 
 struct RegistroProducto {
-
     string nombreProducto;
-
     int precioProducto;
-
     int porcentajeProducto;
-
     int descuento;
-
     int precioFinal;
-
 };
 
+void mostrarMenu() {
+    cout << "\nProductos disponibles:" << endl;
+    cout << "1. Televisor - $500" << endl;
+    cout << "2. Celular - $300" << endl;
+    cout << "3. Laptop - $800" << endl;
+    cout << "4. Audifonos - $50" << endl;
+    cout << "5. Salir" << endl;
+    cout << "Ingrese el numero del producto que desea comprar: ";
+}
 
-int main()
-{
-  /*
-  
-   int precioProducto;
+RegistroProducto calcularProducto(string nombre, int precio, int porcentaje) {
+
+    RegistroProducto producto;
+
+    producto.nombreProducto = nombre;
+    producto.precioProducto = precio;
+    producto.porcentajeProducto = porcentaje;
+    producto.descuento = (precio * porcentaje) / 100;
+    producto.precioFinal = precio - producto.descuento;
+
+    return producto;
+}
+
+void mostrarProducto(RegistroProducto producto) {
     
-    int porcentajeProducto;
-    
-    int descuento;
-    
-    int precioFinal;
-    
-    while(true){
-            
-    cout<<"Ingrese el precio del producto: ";
-    
-    cin>>precioProducto;
-    
-    if(precioProducto < 30){
-        
-        cout<<"Producto no apto para descuento."<<endl; // Descuentos a partir de 30 dolares.
-        
-        break;
-    }
-    else{
-        
-        cout<<"Ingrese el porcentaje de descuento a usar: ";
+    cout << "Nombre del producto: " << producto.nombreProducto << endl;
+    cout << "Precio original: $" << producto.precioProducto << endl;
+    cout << "Descuento aplicado: $" << producto.descuento << endl;
+    cout << "Precio final: $" << producto.precioFinal << endl;
+}
 
-        cin>>porcentajeProducto;
-    
-        descuento = (precioProducto * porcentajeProducto) / 100;
-    
-        cout<<"Precio final: "<<precioProducto - descuento<<endl;
-        
-        cout<<"Saliendo...";
-        
-        break;
-    
-    }
-    
-    }
-  
-  
-  */ 
-    
- // Semana 6, Implementacion de structs
-string nombreProducto = "Televisor";
+int preguntarComprarOtro() {
+    int comprarOtro;
 
-string nombreProducto2 = "Celular";
+    cout << "Desea comprar otro producto? (1. Si / 2. No): ";
+    cin >> comprarOtro;
 
-string nombreProducto3 = "Laptop";
+    return comprarOtro;
+}
 
-string nombreProducto4 = "Audifonos";
+int main() {
+    int option;
 
-RegistroProducto producto;
+    do {
+        mostrarMenu();
+        cin >> option;
 
-int option; 
+        RegistroProducto producto;
 
- do{
-        
-    cout<<"Productos disponibles: "<<endl;
+        switch (option) {
+            case 1:
+                cout << "Ha seleccionado el Televisor." << endl;
+                producto = calcularProducto("Televisor", 500, 10);
+                mostrarProducto(producto);
 
-    cout<<"1. Televisor - $500"<<endl;
+                if (preguntarComprarOtro() == 2) {
+                    option = 5;
+                }
+                break;
 
-    cout<<"2. Celular - $300"<<endl;
+            case 2:
+                cout << "Ha seleccionado el Celular." << endl;
+                producto = calcularProducto("Celular", 300, 10);
+                mostrarProducto(producto);
 
-    cout<<"3. Laptop - $800"<<endl;
+                if (preguntarComprarOtro() == 2) {
+                    option = 5;
+                }
+                break;
 
-    cout<<"4. Audifonos - $50"<<endl;
+            case 3:
+                cout << "Ha seleccionado la Laptop." << endl;
+                producto = calcularProducto("Laptop", 800, 10);
+                mostrarProducto(producto);
 
-    cout<<"5. Salir"<<endl;
+                if (preguntarComprarOtro() == 2) {
+                    option = 5;
+                }
+                break;
 
-    cout<<"Ingrese el numero del producto que desea comprar: ";
+            case 4:
+                cout << "Ha seleccionado los Audifonos." << endl;
+                producto = calcularProducto("Audifonos", 50, 10);
+                mostrarProducto(producto);
 
-    cin>>option;
+                if (preguntarComprarOtro() == 2) {
+                    option = 5;
+                }
+                break;
 
-    switch (option)
-    {
-    case 1: {
+            case 5:
+                cout << "Saliendo..." << endl;
+                break;
 
-        cout<<"Ha seleccionado el Televisor."<<endl;
-
-        int precioProductoTelevisor = 500;
-
-        int descuento = (precioProductoTelevisor * 10) / 100; 
-
-        int precioFinal = precioProductoTelevisor - descuento;
-
-        producto.nombreProducto = nombreProducto;
-
-        producto.precioProducto = precioProductoTelevisor ;
-
-        producto.descuento = descuento;
-
-        producto.precioFinal = precioFinal;
-
-        cout<<"Nombre del producto: "<<producto.nombreProducto<<endl;
-
-        cout<<"Precio original: $"<<producto.precioProducto<<endl;
-
-        cout<<"Descuento aplicado: $"<<producto.descuento<<endl;
-
-        cout<<"Precio final: $"<<producto.precioFinal<<endl;
-
-        cout<<"Desea comprar otro producto? (1. Si / 2. No): ";
-
-        int comprarOtro;
-
-        cin>>comprarOtro;
-
-        if(comprarOtro == 2){
-
-            cout<<"Saliendo..."<<endl;
-
-            option = 5; 
-
+            default:
+                cout << "Opcion no valida." << endl;
+                break;
         }
-        break;
-    }
-    case 2: {
-
-        cout<<"Ha seleccionado el Celular."<<endl;
-
-        int precioProductoCelular = 300;
-
-        int descuento = (precioProductoCelular * 10) / 100;
-
-        int precioFinal = precioProductoCelular - descuento;
-
-        producto.nombreProducto = nombreProducto2;
-
-        producto.precioProducto = precioProductoCelular;
-
-        producto.descuento = descuento;
-
-        producto.precioFinal = precioFinal;
-
-        cout<<"Nombre del producto: "<<producto.nombreProducto<<endl;
-
-        cout<<"Precio original: $"<<producto.precioProducto<<endl;
-
-        cout<<"Descuento aplicado: $"<<producto.descuento<<endl;
-
-        cout<<"Precio final: $"<<producto.precioFinal<<endl;
-
-        cout<<"Desea comprar otro producto? (1. Si / 2. No): ";
-
-        int comprarOtro;
-
-        cin>>comprarOtro;
-
-        if(comprarOtro == 2){
-
-            cout<<"Saliendo..."<<endl;
-
-            option = 5; 
-
-        }
-
-        break;
-
-    }
-    case 3: {
-
-
-        cout<<"Ha seleccionado la Laptop."<<endl;
-
-        int precioProductoLaptop = 800;
-
-        int descuento = (precioProductoLaptop * 10) / 100;
-
-        int precioFinal = precioProductoLaptop - descuento;
-
-        producto.nombreProducto = nombreProducto3;
-
-        producto.precioProducto = precioProductoLaptop;
-
-        producto.descuento = descuento;
-
-        producto.precioFinal = precioFinal;
-
-        cout<<"Nombre del producto: "<<producto.nombreProducto<<endl;
-
-        cout<<"Precio original: $"<<producto.precioProducto<<endl;
-
-        cout<<"Descuento aplicado: $"<<producto.descuento<<endl;
-
-        cout<<"Precio final: $"<<producto.precioFinal<<endl;
-
-        cout<<"Desea comprar otro producto? (1. Si / 2. No): ";
-
-        int comprarOtro;
-
-        cin>>comprarOtro;
-
-        if(comprarOtro == 2){
-
-            cout<<"Saliendo..."<<endl;
-
-            option = 5; 
-
-        }
-
-        break;
-
-    }
-
-    case 4: {
-
-
-        cout<<"Ha seleccionado los Audifonos."<<endl;
-        int precioProductoAudifonos = 50;
-
-        int descuento = (precioProductoAudifonos * 10) / 100;
-
-        int precioFinal = precioProductoAudifonos - descuento;
-
-        producto.nombreProducto = nombreProducto4;
-
-        producto.precioProducto = precioProductoAudifonos;
-
-        producto.descuento = descuento;
-
-        producto.precioFinal = precioFinal;
-
-        cout<<"Nombre del producto: "<<producto.nombreProducto<<endl;
-
-        cout<<"Precio original: $"<<producto.precioProducto<<endl;
-
-        cout<<"Descuento aplicado: $"<<producto.descuento<<endl;
-
-        cout<<"Precio final: $"<<producto.precioFinal<<endl;
-
-        cout<<"Desea comprar otro producto? (1. Si / 2. No): ";
-
-        int comprarOtro;
-
-        cin>>comprarOtro;
-
-        if(comprarOtro == 2){
-
-            cout<<"Saliendo..."<<endl;
-
-            option = 5; 
-
-        }
-
-        break;
-
-    }
-
-    case 5: {
-
-        cout<<"Saliendo.."<<endl;
-
-        break;
-    
-    }
-
-    default:
-
-        cout<<"Opción no válida."<<endl;
-
-        break;
-    }
 
     } while (option != 5);
-
 
     return 0;
 }
